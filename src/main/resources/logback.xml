@@ -1,0 +1,81 @@
+<configuration>
+
+	<property name="HOME_LOG" value="logs/app.log" />
+	<property name="CRAWLING_LOG" value="logs/crawling.log" />
+	<property name="CRAWLING_DATA" value="logs/data.log" />
+
+	<appender name="FILE-ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${HOME_LOG}</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/archived/app.%d{yyyy-MM-dd}.%i.log.gz
+			</fileNamePattern>
+			<!-- each archived file, size max 10MB -->
+			<maxFileSize>10MB</maxFileSize>
+			<!-- total size of all archive files, if total size > 20GB, it will delete 
+				old archived file -->
+			<totalSizeCap>20GB</totalSizeCap>
+			<!-- 60 days to keep -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d %p %c{1.} [%t] %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CRAWLING-LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${CRAWLING_LOG}</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/archived/crawling.%d{yyyy-MM-dd}.%i.log.gz
+			</fileNamePattern>
+			<!-- each archived file, size max 10MB -->
+			<maxFileSize>10MB</maxFileSize>
+			<!-- total size of all archive files, if total size > 20GB, it will delete 
+				old archived file -->
+			<totalSizeCap>20GB</totalSizeCap>
+			<!-- 60 days to keep -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d %p %c{1.} [%t] %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="CRAWLING-DATA"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${CRAWLING_DATA}</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>logs/archived/data.%d{yyyy-MM-dd}.%i.log.gz
+			</fileNamePattern>
+			<!-- each archived file, size max 10MB -->
+			<maxFileSize>10MB</maxFileSize>
+			<!-- total size of all archive files, if total size > 20GB, it will delete 
+				old archived file -->
+			<totalSizeCap>20GB</totalSizeCap>
+			<!-- 60 days to keep -->
+			<maxHistory>60</maxHistory>
+		</rollingPolicy>
+
+	</appender>
+
+	<logger name="CrawlerLogs" level="info" additivity="false">
+		<appender-ref ref="CRAWLING-LOG" />
+	</logger>
+
+	<logger name="CrawlerData" level="info" additivity="false">
+		<appender-ref ref="CRAWLING-DATA" />
+	</logger>
+
+	<root level="all">
+		<appender-ref ref="FILE-ROLLING" />
+	</root>
+</configuration>
