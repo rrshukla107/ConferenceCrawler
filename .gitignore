@@ -116,6 +116,9 @@ release.properties
 pom.xml.releaseBackup
 pom.xml.tag
 
+src/main/resources/crawler4j/
+src/test/resources/
+
 target/
 pom.xml.tag
 pom.xml.releaseBackup
